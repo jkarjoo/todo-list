@@ -1,10 +1,10 @@
 import { createHTMLElement } from './createElement.js';
 
-const renderTaskHeader = () => {
+const renderTaskHeader = (listName) => {
     const contentContainer = document.querySelector('.main-content');
     const headerContent = createHTMLElement('div', ['header-content']);
     const backBtn = createHTMLElement('div', ['backbtn']);
-    const h1 = createHTMLElement('h1', ['header'], 'All Tasks');
+    const h1 = createHTMLElement('h1', ['header'], `${listName}`);
     const newListBtn = createHTMLElement('div', ['newtask']);
 
     let contentArray = [backBtn, h1, newListBtn];
