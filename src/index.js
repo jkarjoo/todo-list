@@ -1,8 +1,8 @@
-import { renderHome } from './home.js';
+import { renderHomeHeader } from './home.js';
 import { renderListItem } from './list.js';
 
 
-renderHome();
+renderHomeHeader();
 
 renderListItem('School');
 renderListItem('Groceries');

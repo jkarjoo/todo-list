@@ -1,6 +1,6 @@
 import { createHTMLElement } from './createElement.js';
 
-const renderHome = () => {
+const renderHomeHeader = () => {
     const contentContainer = document.querySelector('.main-content');
     const headerContent = createHTMLElement('div', ['header-content']);
     const h1 = createHTMLElement('h1', ['header'], 'All Lists');
@@ -15,4 +15,4 @@ const renderHome = () => {
     contentContainer.appendChild(todoList);
 }
 
-export { renderHome }
+export { renderHomeHeader }
