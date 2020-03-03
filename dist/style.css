@@ -65,9 +65,13 @@ span {
     border-radius: 5px;
 }
 
-.header {
+.header, .taskheader {
     margin-bottom: 5px;
     padding-left: 10px;
+}
+
+.taskheader {
+    padding-left: 0px;
 }
 
 .newtask, .newlist {

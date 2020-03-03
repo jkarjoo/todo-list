@@ -4,7 +4,7 @@ const renderTaskHeader = (listName) => {
     const contentContainer = document.querySelector('.main-content');
     const headerContent = createHTMLElement('div', ['header-content']);
     const backBtn = createHTMLElement('div', ['backbtn']);
-    const h1 = createHTMLElement('h1', ['header'], `${listName}`);
+    const h1 = createHTMLElement('h1', ['taskheader'], `${listName}`);
     const newListBtn = createHTMLElement('div', ['newtask']);
 
     let contentArray = [backBtn, h1, newListBtn];
