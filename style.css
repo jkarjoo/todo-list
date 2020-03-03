@@ -9,7 +9,6 @@ html {
 }
 
 body {
-    height: 100%;
     background-color: white;
     font-family: "Raleway";
     color: #383838;
@@ -64,9 +63,10 @@ span {
 
 .header {
     margin-bottom: 5px;
+    padding-left: 10px;
 }
 
-.newtask {
+.newtask, .newlist {
     background-image: url('images/add.svg');
     width: 36px;
     height: 36px;
@@ -76,7 +76,7 @@ span {
     cursor: pointer;
 }
 
-.newtask:hover {
+.newtask:hover, .newlist:hover {
     transform: rotate(180deg);
     transition: 0.4s ease-in-out;
 }
@@ -102,6 +102,7 @@ ul li {
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
   
 ul li.checked {
@@ -131,11 +132,11 @@ ul li.list {
 }
 
 li:nth-of-type(3n+1) {
-    background-color:#f7e7ca;
+    background-color:wheat;
 }
 
 li:nth-of-type(3n+1):hover {
-    background-color: wheat;
+    background-color: #efd4a2;;
 }
 
 li:nth-of-type(3n+2) {
