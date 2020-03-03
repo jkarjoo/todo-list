@@ -1,9 +1,15 @@
-import { renderHomeHeader } from './home.js';
+import { renderListHeader } from './listheader.js';
 import { renderListItem } from './list.js';
+import { renderTaskHeader } from './taskheader.js';
 
-
-renderHomeHeader();
+renderTaskHeader();
+/*
+renderListHeader();
 
 renderListItem('School');
 renderListItem('Groceries');
 renderListItem('Work');
+*/
+
+
+
