@@ -18,6 +18,10 @@ span {
     word-break: break-word;
 }
 
+.list span {
+    margin-top: 2px;
+}
+
 #content {
     position: absolute;
     left: 50%;
@@ -102,7 +106,6 @@ ul li {
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
   
 ul li.checked {
