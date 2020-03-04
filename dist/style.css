@@ -263,19 +263,19 @@ button {
     justify-content: center;
 }
 
-#create, #cancel, #delete {
+.create-list, .cancel-list, #delete {
     width: 100px;
     margin-right: 25px;
     margin-top: 5px;
 }
 
-#create {
+.create-list {
     background-color: #0095ff;
     border-color: #0095ff;
     color: white;
 }
 
-#cancel {
+.cancel-list {
     border: 1px solid black;
     margin-right: 0px;
 }
