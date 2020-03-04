@@ -193,9 +193,9 @@ span.date.checked {
 }
 
 
-/* New List Modal */
+/* Modal */
 
-.newtask-container, .newlist-container, .delete-container{
+.modal-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -204,11 +204,11 @@ span.date.checked {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.newtask-container, .newlist-container, .delete-container {
+.modal-container {
     display: none;
 }
 
-.newtask-modal, .newlist-modal, .delete-modal {
+.modal {
     position: absolute;
     width: 50vh;
     top: 50vh;
@@ -263,7 +263,7 @@ button {
     justify-content: center;
 }
 
-.create-list, .create-task, .cancel-list, .cancel-task, .cancel-delete, .delete {
+.modal-buttons button {
     width: 100px;
     margin-right: 25px;
     margin-top: 5px;
