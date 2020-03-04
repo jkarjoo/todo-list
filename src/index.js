@@ -4,6 +4,7 @@ import { renderTaskHeader } from './taskheader.js';
 import { renderTaskItem } from './task.js';
 import { renderListModal } from './listmodal.js';
 import { renderTaskModal } from './taskmodal.js';
+import { renderDeleteModal } from './deletemodal.js';
 
 renderTaskHeader('School');
 renderTaskItem('Prog I Assignment', 'March 1st, 2020');
@@ -12,9 +13,11 @@ renderTaskItem('Todo List Project', 'March 9th, 2020');
 
 
 
+
 /*
 renderListModal();
 renderTaskModal();
+renderDeleteModal();
 renderListHeader();
 
 renderListItem('School');
