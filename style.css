@@ -263,27 +263,41 @@ button {
     justify-content: center;
 }
 
-.create-list, .create-task, .cancel-list, .cancel-task, #delete {
+.create-list, .create-task, .cancel-list, .cancel-task, .cancel-delete, .delete {
     width: 100px;
     margin-right: 25px;
     margin-top: 5px;
 }
 
 .create-list, .create-task {
-    background-color: #0095ff;
-    border-color: #0095ff;
+    background-color: #29a6ff;
+    border-color: #29a6ff;
     color: white;
 }
 
-.cancel-list, .cancel-task {
+.create-list:hover, .create-task:hover {
+    background-color: #1799f5;
+    border-color: #1799f5;
+}
+
+.cancel-list, .cancel-task, .cancel-delete {
     border: 1px solid black;
     margin-right: 0px;
 }
 
-#delete {
-    background-color: #ec3849;
-    border-color: #ec3849;
+.cancel-list:hover, .cancel-task:hover, .cancel-delete:hover {
+    background-color: #d8d8d8;
+}
+
+.delete {
+    background-color: #e84655;
+    border-color: #e84655;
     color: white;
+}
+
+.delete:hover {
+    background-color: #f52e41;
+    border-color: #f52e41;
 }
 
 .warning-header {
