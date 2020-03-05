@@ -204,10 +204,6 @@ span.date.checked {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-container {
-    display: none;
-}
-
 .modal {
     position: absolute;
     width: 50vh;
