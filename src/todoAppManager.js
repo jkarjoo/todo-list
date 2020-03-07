@@ -1,7 +1,7 @@
 import { renderHeader } from './header.js';
 import { List, renderListItem } from './list.js';
 import { Task, renderTaskItem } from './task.js';
-import { renderModal } from './modal.js';
+import { renderModal, closeModal } from './modal.js';
 
 const init = () => {
     renderHeader('list');
@@ -18,38 +18,29 @@ const init = () => {
     }
 
 
-    const addNewListItem = (title) => {
+    const createNewListItem = (title) => {
         let list = new List(title, listId++);
         listItems.push(list);
         renderListItem(list.title, list.id);
     }
-    const addNewTaskItem = (title, id, date) => {
+    const createNewTaskItem = (title, id, date) => {
         let task = new Task(title, taskId++, date);
         listItems[id].taskList.push(task);
     }
-    addNewListItem('test');
+    createNewListItem('test');
 
-
-    const newListButton = document.getElementById('newList');
-    newListButton.addEventListener('click', function() {
-        renderModal('list');
-
-        const createListBtn = document.querySelector('.create-list');
-        createListBtn.addEventListener('click', function() {
-        let title = document.querySelector('input[name="list-title"]');
-        addNewListItem(title.value);
-        const modal = document.querySelector('.modal-container');
-        modal.remove();
-        
-    });
-    });
-
-    let deleteBtns = document.querySelectorAll('.deletebtn');
-    deleteBtns.forEach(btn => btn.addEventListener('click', function() {
-        renderModal('delete');
-    }));
-
-
+    document.addEventListener('click', function(e) {
+        const { target } = e;
+        if (target.id === 'newList') {
+            renderModal('list');
+        }
+        else if (target.className === 'deletebtn') {
+            renderModal('delete');
+        }
+        else if (target.className === 'cancel') {
+            closeModal();
+        }
+    })
 
 }
 

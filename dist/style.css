@@ -276,12 +276,12 @@ button {
     border-color: #1799f5;
 }
 
-.cancel-list, .cancel-task, .cancel-delete {
+.cancel {
     border: 1px solid black;
     margin-right: 0px;
 }
 
-.cancel-list:hover, .cancel-task:hover, .cancel-delete:hover {
+.cancelhover {
     background-color: #d8d8d8;
 }
 

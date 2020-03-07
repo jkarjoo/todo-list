@@ -15,7 +15,7 @@ const renderModal = (type) => {
         input.setAttribute('placeholder', 'Work');
         const modalButtons = createHTMLElement('div', ['modal-buttons']);
         const createBtn = createHTMLElement('button', ['create-list'], 'Create');
-        const cancelBtn = createHTMLElement('button', ['cancel-list'], 'Cancel');
+        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
 
         const buttonContent = [createBtn, cancelBtn];
         buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -48,7 +48,7 @@ const renderModal = (type) => {
         dueinput.setAttribute('name', 'duedate');
         const modalButtons = createHTMLElement('div', ['modal-buttons']);
         const createBtn = createHTMLElement('button', ['create-task'], 'Create');
-        const cancelBtn = createHTMLElement('button', ['cancel-task'], 'Cancel');
+        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
     
         const buttonContent = [createBtn, cancelBtn];
         buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -74,7 +74,7 @@ const renderModal = (type) => {
         const span2 = createHTMLElement('span', ['warning-body'], 'Do you really want to delete this record? This process cannot be undone.');
         const modalButtons = createHTMLElement('div', ['modal-buttons']);
         const deleteBtn = createHTMLElement('button', ['delete'], 'Delete');
-        const cancelBtn = createHTMLElement('button', ['cancel-delete'], 'Cancel');
+        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
     
         const buttonContent = [deleteBtn, cancelBtn];
         buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -89,4 +89,9 @@ const renderModal = (type) => {
     }
 }
 
-export { renderModal }
+const closeModal = () => {
+    let modal = document.querySelector('.modal-container');
+    modal.remove();
+}
+
+export { renderModal, closeModal }
