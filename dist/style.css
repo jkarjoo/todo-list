@@ -74,7 +74,7 @@ span {
     padding-left: 0px;
 }
 
-.newtask, .newlist {
+.newbutton {
     background-image: url('images/add.svg');
     width: 36px;
     height: 36px;
@@ -84,7 +84,7 @@ span {
     cursor: pointer;
 }
 
-.newtask:hover, .newlist:hover {
+.newbutton:hover {
     transform: rotate(180deg);
     transition: 0.4s ease-in-out;
 }
