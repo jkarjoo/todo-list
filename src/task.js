@@ -1,22 +1,25 @@
 import { createHTMLElement } from './createElement.js';
+import { renderDeleteModal } from './modal.js';
 
-function Task (title, id, dueDate, completed) {
+function Task (title, id, date, completed) {
     this.id = id;
     this.completed = false;
-    return { title, id, dueDate, completed };
+    return { title, id, date, completed };
 };
 
 const renderTaskItem = (title, id, date) => {
     const contentContainer = document.querySelector('.main-content');
     const todoList = document.querySelector('.todolist');
     const task = createHTMLElement('li', ['task']);
-    task.dataset.taskId = `${id}`;
+    task.dataset.taskId = id;
     const radio = createHTMLElement('div', ['radio']);
     const span = createHTMLElement('span', [], `${title}`);
     const dueDate = createHTMLElement('span', ['date'], `Due ${date}`);
     const buttons = createHTMLElement('div', ['buttons']);
     const editBtn = createHTMLElement('div', ['editbtn']);
+    editBtn.dataset.taskEditId = id;
     const deleteBtn = createHTMLElement('div', ['deletebtn']);
+    deleteBtn.dataset.taskDeleteId = id;
     
     const buttonContent = [editBtn, deleteBtn];
     buttonContent.forEach(button => buttons.appendChild(button));
@@ -27,6 +30,13 @@ const renderTaskItem = (title, id, date) => {
     todoList.appendChild(task);
     
     contentContainer.appendChild(todoList);
+
+    // Event Listeners
+    deleteBtn.addEventListener('click', function(e) {
+        const { target } = e;
+        (target.dataset.listDeleteId) ? renderDeleteModal(target.dataset.listDeleteId, 'list') : renderDeleteModal(target.dataset.taskDeleteId, 'task');
+        event.stopPropagation();
+    });
 }
 
 export { Task, renderTaskItem }

@@ -1,92 +1,111 @@
 import { createHTMLElement } from './createElement.js';
+import { currentListIndex, createNewListItem, createNewTaskItem, removeItem } from './helperfunctions.js';
 
-const renderModal = (type) => {
-    if (type === 'list') {
-        const newlistContainer = createHTMLElement('div', ['modal-container']);
-        const newlistModal = createHTMLElement('div', ['modal']);
-        const form = createHTMLElement('form');
-        form.setAttribute('action', 'javascript:void(0)');
-        const span = createHTMLElement('span', ['newlisthead'], 'New List');
-        const label = createHTMLElement('label', [], 'Title');
-        label.setAttribute('for', 'list-title');
-        const input = createHTMLElement('input');
-        input.setAttribute('type', 'text');
-        input.setAttribute('name', 'list-title');
-        input.setAttribute('placeholder', 'Work');
-        const modalButtons = createHTMLElement('div', ['modal-buttons']);
-        const createBtn = createHTMLElement('button', ['create-list'], 'Create');
-        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+const renderListModal = () => {
+    const modal = createHTMLElement('div', ['modal-container']);
+    modal.dataset.modalType = 'list';
+    const newlistModal = createHTMLElement('div', ['modal']);
+    const form = createHTMLElement('form');
+    form.setAttribute('action', 'javascript:void(0)');
+    const span = createHTMLElement('span', ['newlisthead'], 'New List');
+    const label = createHTMLElement('label', [], 'Title');
+    label.setAttribute('for', 'list-title');
+    const input = createHTMLElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'list-title');
+    input.setAttribute('placeholder', 'Work');
+    const modalButtons = createHTMLElement('div', ['modal-buttons']);
+    const createBtn = createHTMLElement('button', ['create-list'], 'Create');
+    const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
 
-        const buttonContent = [createBtn, cancelBtn];
-        buttonContent.forEach(button => modalButtons.appendChild(button));
+    const buttonContent = [createBtn, cancelBtn];
+    buttonContent.forEach(button => modalButtons.appendChild(button));
 
-        const innerContent = [span, label, input, modalButtons];
-        innerContent.forEach(item => form.appendChild(item));
+    const innerContent = [span, label, input, modalButtons];
+    innerContent.forEach(item => form.appendChild(item));
 
-        newlistModal.appendChild(form);
-        newlistContainer.appendChild(newlistModal);
+    newlistModal.appendChild(form);
+    modal.appendChild(newlistModal);
 
-        document.body.appendChild(newlistContainer);
-    }
+    document.body.appendChild(modal);
 
-    else if (type === 'task') {
-        const newtaskContainer = createHTMLElement('div', ['modal-container']);
-        const newtaskModal = createHTMLElement('div', ['modal']);
-        const form = createHTMLElement('form');
-        form.setAttribute('action', 'javascript:void(0)');
-        const span = createHTMLElement('span', ['newtaskhead'], 'New Task');
-        const label = createHTMLElement('label', [], 'Title');
-        label.setAttribute('for', 'task-title');
-        const input = createHTMLElement('input');
-        input.setAttribute('type', 'text');
-        input.setAttribute('name', 'task-title');
-        input.setAttribute('placeholder', 'Do Laundry');
-        const duelabel = createHTMLElement('label', [], 'Due Date');
-        duelabel.setAttribute('for', 'duedate');
-        const dueinput = createHTMLElement('input');
-        dueinput.setAttribute('type', 'date');
-        dueinput.setAttribute('name', 'duedate');
-        const modalButtons = createHTMLElement('div', ['modal-buttons']);
-        const createBtn = createHTMLElement('button', ['create-task'], 'Create');
-        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
-    
-        const buttonContent = [createBtn, cancelBtn];
-        buttonContent.forEach(button => modalButtons.appendChild(button));
-    
-        const innerContent = [span, label, input, duelabel, dueinput, modalButtons];
-        innerContent.forEach(item => form.appendChild(item));
-    
-        newtaskModal.appendChild(form);
-        newtaskContainer.appendChild(newtaskModal);
-    
-        document.body.appendChild(newtaskContainer);
-    }
+    // Event Listeners
+    createBtn.addEventListener('click', createNewListItem);
+    cancelBtn.addEventListener('click', closeModal);
+}
 
-    else if (type === 'delete') {
-        const deleteContainer = createHTMLElement('div', ['modal-container']);
-        const deleteModal = createHTMLElement('div', ['modal']);
-        const form = createHTMLElement('form');
-        form.setAttribute('action', 'javascript:void(0)');
-        const warningContainer = createHTMLElement('div', ['warning-container']);
-        const warningIcon = createHTMLElement('div', ['warning-icon']);
-        warningContainer.appendChild(warningIcon);
-        const span1 = createHTMLElement('span', ['warning-header'], 'Are you sure?');
-        const span2 = createHTMLElement('span', ['warning-body'], 'Do you really want to delete this record? This process cannot be undone.');
-        const modalButtons = createHTMLElement('div', ['modal-buttons']);
-        const deleteBtn = createHTMLElement('button', ['delete'], 'Delete');
-        const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
-    
-        const buttonContent = [deleteBtn, cancelBtn];
-        buttonContent.forEach(button => modalButtons.appendChild(button));
-    
-        const innerContent = [warningContainer, span1, span2, modalButtons];
-        innerContent.forEach(item => form.appendChild(item));
-    
-        deleteModal.appendChild(form);
-        deleteContainer.appendChild(deleteModal);
+const renderTaskModal = () => {
+    const modal = createHTMLElement('div', ['modal-container']);
+    modal.dataset.modalType = 'task';
+    const newtaskModal = createHTMLElement('div', ['modal']);
+    const form = createHTMLElement('form');
+    form.setAttribute('action', 'javascript:void(0)');
+    const span = createHTMLElement('span', ['newtaskhead'], 'New Task');
+    const label = createHTMLElement('label', [], 'Title');
+    label.setAttribute('for', 'task-title');
+    const input = createHTMLElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'task-title');
+    input.setAttribute('placeholder', 'Do Laundry');
+    const duelabel = createHTMLElement('label', [], 'Due Date');
+    duelabel.setAttribute('for', 'duedate');
+    const dueinput = createHTMLElement('input');
+    dueinput.setAttribute('type', 'date');
+    dueinput.setAttribute('name', 'duedate');
+    const modalButtons = createHTMLElement('div', ['modal-buttons']);
+    const createBtn = createHTMLElement('button', ['create-task'], 'Create');
+    const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
 
-        document.body.appendChild(deleteContainer);
-    }
+    const buttonContent = [createBtn, cancelBtn];
+    buttonContent.forEach(button => modalButtons.appendChild(button));
+
+    const innerContent = [span, label, input, duelabel, dueinput, modalButtons];
+    innerContent.forEach(item => form.appendChild(item));
+
+    newtaskModal.appendChild(form);
+    modal.appendChild(newtaskModal);
+
+    document.body.appendChild(modal);
+
+    // Event Listeners
+    createBtn.addEventListener('click', createNewTaskItem);
+    cancelBtn.addEventListener('click', closeModal);
+}
+
+const renderDeleteModal = (id, type) => {
+    const modal = createHTMLElement('div', ['modal-container']);
+    modal.dataset.modalType = 'delete';
+    const deleteModal = createHTMLElement('div', ['modal']);
+    const form = createHTMLElement('form');
+    form.setAttribute('action', 'javascript:void(0)');
+    const warningContainer = createHTMLElement('div', ['warning-container']);
+    const warningIcon = createHTMLElement('div', ['warning-icon']);
+    warningContainer.appendChild(warningIcon);
+    const span1 = createHTMLElement('span', ['warning-header'], 'Are you sure?');
+    const span2 = createHTMLElement('span', ['warning-body'], 'Do you really want to delete this record? This process cannot be undone.');
+    const modalButtons = createHTMLElement('div', ['modal-buttons']);
+    const deleteBtn = createHTMLElement('button', ['delete'], 'Delete');
+    deleteBtn.dataset.type = type;
+    deleteBtn.dataset.deleteId = id;
+    const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+
+    const buttonContent = [deleteBtn, cancelBtn];
+    buttonContent.forEach(button => modalButtons.appendChild(button));
+
+    const innerContent = [warningContainer, span1, span2, modalButtons];
+    innerContent.forEach(item => form.appendChild(item));
+
+    deleteModal.appendChild(form);
+    modal.appendChild(deleteModal);
+
+    document.body.appendChild(modal);
+
+    // Event Listeners
+    deleteBtn.addEventListener('click', function(e) {
+        const { target } = e;
+        removeItem(target.dataset.deleteId, target.dataset.type, currentListIndex);
+    });
+    cancelBtn.addEventListener('click', closeModal);
 }
 
 const closeModal = () => {
@@ -94,4 +113,4 @@ const closeModal = () => {
     modal.remove();
 }
 
-export { renderModal, closeModal }
+export { renderListModal, renderTaskModal, renderDeleteModal, closeModal }

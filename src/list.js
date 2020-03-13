@@ -1,4 +1,6 @@
 import { createHTMLElement } from './createElement.js';
+import { renderDeleteModal } from './modal.js';
+import { renderTaskPage } from './helperfunctions.js';
 
 function List (title, id) {
     this.taskList = [];
@@ -10,13 +12,13 @@ const renderListItem = (title, id) => {
     const contentContainer = document.querySelector('.main-content');
     const todoList = document.querySelector('.todolist');
     const list = createHTMLElement('li', ['list']);
-    list.dataset.listId = `${id}`;
+    list.dataset.listId = id;
     const span = createHTMLElement('span', [], `${title}`);
     const buttons = createHTMLElement('div', ['buttons']);
-    const editBtn = createHTMLElement('div', ['editbtn']);
     const deleteBtn = createHTMLElement('div', ['deletebtn']);
+    deleteBtn.dataset.listDeleteId = id;
     
-    const buttonContent = [editBtn, deleteBtn];
+    const buttonContent = [deleteBtn];
     buttonContent.forEach(button => buttons.appendChild(button));
     
     const contentArray2 = [span, buttons];
@@ -25,6 +27,17 @@ const renderListItem = (title, id) => {
     todoList.appendChild(list);
     
     contentContainer.appendChild(todoList);
+
+    // Event Listeners
+    list.addEventListener('click', function(e) {
+        const { target } = e;
+        renderTaskPage(target.dataset.listId);
+    });
+    deleteBtn.addEventListener('click', function(e) {
+        const { target } = e;
+        (target.dataset.listDeleteId) ? renderDeleteModal(target.dataset.listDeleteId, 'list') : renderDeleteModal(target.dataset.taskDeleteId, 'task');
+        event.stopPropagation();
+    });
 }
 
 export { List, renderListItem }
