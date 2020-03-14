@@ -2,6 +2,7 @@ import { renderListHeader, renderTaskHeader } from './header.js';
 import { List, renderListItem } from './list.js';
 import { Task, renderTaskItem } from './task.js';
 import { renderTaskModal, closeModal } from './modal.js';
+import { renderEmptyState, removeEmptyState }  from './emptystate.js';
 
 let currentListIndex;
 let listItems = [];
@@ -16,6 +17,7 @@ const removeContent = () => {
 const renderHomePage = () => {
     removeContent();
     renderListHeader();
+    checkEmptyListState();
     listItems.forEach(list => renderListItem(list.title, list.id));
 }
 
@@ -23,6 +25,7 @@ const renderTaskPage = (parent) => {
     currentListIndex = parent;
     removeContent();
     renderTaskHeader(listItems[parent].title);
+    checkEmptyTaskState();
     listItems[parent].taskList.forEach(task => renderTaskItem(task.title, task.id, task.date, task.completed));
 }
 
@@ -31,6 +34,7 @@ const createNewListItem = () => {
         if (input) {
             let list = new List(input, listId++);
             listItems.push(list);
+            checkEmptyListState();
             renderListItem(list.title, list.id);
             closeModal();
     }
@@ -42,6 +46,7 @@ const createNewTaskItem = () => {
         if (title && date) {
             let task = new Task(title, taskId++, date);
             listItems[currentListIndex].taskList.push(task);
+            checkEmptyTaskState();
             renderTaskItem(title, task.id, date);
             closeModal();
     }
@@ -52,12 +57,14 @@ const removeItem = (id, type, parentId) => {
         delete listItems[id];
         let domElement = document.querySelector(`[data-list-id="${id}"]`);
         domElement.remove();
+        checkEmptyListState();
     }
     if (type === 'task') {
         let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
         listItems[parentId].taskList.splice(index, 1);
         let domElement = document.querySelector(`[data-task-id="${id}"]`);
         domElement.remove();
+        checkEmptyTaskState();
     }
     closeModal();
 }
@@ -92,6 +99,25 @@ const checkTask = (id) => {
     radio.classList.toggle('checked');
     const span = document.querySelector(`[data-date-id="${id}"]`);
     span.classList.toggle('checked');
+}
+
+const checkEmptyListState = () => {
+    if (listItems.length === 0 || listItems.every(item => !item)) {
+         renderEmptyState('List');
+    }
+    else {
+        removeEmptyState();
+    }
+}
+
+const checkEmptyTaskState = () => {
+    const taskArr = listItems[currentListIndex].taskList;
+    if (taskArr.length === 0) {
+        renderEmptyState('Task');
+    }
+    else {
+        removeEmptyState();
+    }
 }
 
 export { listItems, completeTask, checkTask, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
