@@ -1,6 +1,7 @@
 import { createHTMLElement } from './createElement.js';
 import { renderDeleteModal, renderEditModal } from './modal.js';
 import { completeTask, checkTask } from './helperfunctions.js';
+import { formatDate } from './datefunctions.js';
 
 function Task (title, id, date, completed) {
     this.id = id;
@@ -9,6 +10,7 @@ function Task (title, id, date, completed) {
 };
 
 const renderTaskItem = (title, id, date, completed) => {
+    date = formatDate(date);
     const contentContainer = document.querySelector('.main-content');
     const todoList = document.querySelector('.todolist');
     const task = createHTMLElement('li', ['task']);

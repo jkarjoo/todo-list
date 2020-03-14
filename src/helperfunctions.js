@@ -1,8 +1,9 @@
 import { renderListHeader, renderTaskHeader } from './header.js';
 import { List, renderListItem } from './list.js';
 import { Task, renderTaskItem } from './task.js';
-import { renderTaskModal, closeModal } from './modal.js';
+import { closeModal } from './modal.js';
 import { renderEmptyState, removeEmptyState }  from './emptystate.js';
+import { formatDate } from './datefunctions.js';
 
 let currentListIndex;
 let listItems = [];
@@ -74,7 +75,7 @@ const editTaskItem = (id) => {
     let title = document.querySelector('input[name="task-title"]').value;
     let date = document.querySelector('input[name="duedate"]').value;
     if (title && date) {
-      let domElement = document.querySelector(`[data-task-id="${id}"]`);
+        let domElement = document.querySelector(`[data-task-id="${id}"]`);
         domElement.remove();
         listItems[currentListIndex].taskList[index].title = title;
         listItems[currentListIndex].taskList[index].date = date;
