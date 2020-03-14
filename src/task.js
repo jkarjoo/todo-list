@@ -1,5 +1,5 @@
 import { createHTMLElement } from './createElement.js';
-import { renderDeleteModal } from './modal.js';
+import { renderDeleteModal, renderEditModal } from './modal.js';
 
 function Task (title, id, date, completed) {
     this.id = id;
@@ -32,6 +32,9 @@ const renderTaskItem = (title, id, date) => {
     contentContainer.appendChild(todoList);
 
     // Event Listeners
+    editBtn.addEventListener('click', function(e) {
+        renderEditModal(e.target.dataset.taskEditId);
+    });
     deleteBtn.addEventListener('click', function(e) {
         const { target } = e;
         (target.dataset.listDeleteId) ? renderDeleteModal(target.dataset.listDeleteId, 'list') : renderDeleteModal(target.dataset.taskDeleteId, 'task');

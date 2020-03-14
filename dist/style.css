@@ -285,6 +285,16 @@ button {
     background-color: #d8d8d8;
 }
 
+.edit-task {
+    background-color: #f9b12f;
+    border-color: #f9b12f;
+}
+
+.edit-task:hover {
+    background-color: #ffb93b;
+    border-color: #ffb93b;
+}
+
 .delete {
     background-color: #e84655;
     border-color: #e84655;

@@ -1,5 +1,5 @@
 import { createHTMLElement } from './createElement.js';
-import { currentListIndex, createNewListItem, createNewTaskItem, removeItem } from './helperfunctions.js';
+import { listItems, editTaskItem, currentListIndex, createNewListItem, createNewTaskItem, removeItem } from './helperfunctions.js';
 
 const renderListModal = () => {
     const modal = createHTMLElement('div', ['modal-container']);
@@ -72,6 +72,50 @@ const renderTaskModal = () => {
     cancelBtn.addEventListener('click', closeModal);
 }
 
+const renderEditModal = (id) => {
+    let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
+    const modal = createHTMLElement('div', ['modal-container']);
+    modal.dataset.modalType = 'edit';
+    const newtaskModal = createHTMLElement('div', ['modal']);
+    const form = createHTMLElement('form');
+    form.setAttribute('action', 'javascript:void(0)');
+    const span = createHTMLElement('span', ['newtaskhead'], 'Edit Task');
+    const label = createHTMLElement('label', [], 'Title');
+    label.setAttribute('for', 'task-title');
+    const input = createHTMLElement('input');
+    input.value = listItems[currentListIndex].taskList[index].title;
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'task-title');
+    input.setAttribute('placeholder', 'Do Laundry');
+    const duelabel = createHTMLElement('label', [], 'Due Date');
+    duelabel.setAttribute('for', 'duedate');
+    const dueinput = createHTMLElement('input');
+    dueinput.value = listItems[currentListIndex].taskList[index].date;
+    dueinput.setAttribute('type', 'date');
+    dueinput.setAttribute('name', 'duedate');
+    const modalButtons = createHTMLElement('div', ['modal-buttons']);
+    const editBtn = createHTMLElement('button', ['edit-task'], 'Edit');
+    editBtn.dataset.editId = id;
+    const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+
+    const buttonContent = [editBtn, cancelBtn];
+    buttonContent.forEach(button => modalButtons.appendChild(button));
+
+    const innerContent = [span, label, input, duelabel, dueinput, modalButtons];
+    innerContent.forEach(item => form.appendChild(item));
+
+    newtaskModal.appendChild(form);
+    modal.appendChild(newtaskModal);
+
+    document.body.appendChild(modal);
+
+    // Event Listeners
+    editBtn.addEventListener('click', function(e) {
+        editTaskItem(e.target.dataset.editId);
+    });
+    cancelBtn.addEventListener('click', closeModal);
+}
+
 const renderDeleteModal = (id, type) => {
     const modal = createHTMLElement('div', ['modal-container']);
     modal.dataset.modalType = 'delete';
@@ -113,4 +157,4 @@ const closeModal = () => {
     modal.remove();
 }
 
-export { renderListModal, renderTaskModal, renderDeleteModal, closeModal }
+export { renderListModal, renderTaskModal, renderDeleteModal, renderEditModal, closeModal }

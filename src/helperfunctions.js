@@ -1,7 +1,7 @@
 import { renderListHeader, renderTaskHeader } from './header.js';
 import { List, renderListItem } from './list.js';
 import { Task, renderTaskItem } from './task.js';
-import { closeModal } from './modal.js';
+import { renderTaskModal, closeModal } from './modal.js';
 
 let currentListIndex;
 let listItems = [];
@@ -44,24 +44,37 @@ const createNewTaskItem = () => {
             listItems[currentListIndex].taskList.push(task);
             renderTaskItem(title, task.id, date);
             closeModal();
-            
     }
 }
 
 const removeItem = (id, type, parentId) => {
-    console.log(listItems);
     if (type === 'list') {
         delete listItems[id];
         let domElement = document.querySelector(`[data-list-id="${id}"]`);
         domElement.remove();
     }
     if (type === 'task') {
-        delete listItems[parentId].taskList[id];
+        let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
+        listItems[parentId].taskList.splice(index, 1);
         let domElement = document.querySelector(`[data-task-id="${id}"]`);
         domElement.remove();
     }
     closeModal();
 }
 
-export { listItems, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
+const editTaskItem = (id) => {
+    let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
+    let title = document.querySelector('input[name="task-title"]').value;
+    let date = document.querySelector('input[name="duedate"]').value;
+    if (title && date) {
+      let domElement = document.querySelector(`[data-task-id="${id}"]`);
+        domElement.remove();
+        listItems[currentListIndex].taskList[index].title = title;
+        listItems[currentListIndex].taskList[index].date = date;
+        renderTaskItem(title, id, date);
+        closeModal();  
+    }
+}
+
+export { listItems, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
 
