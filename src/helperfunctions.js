@@ -23,7 +23,7 @@ const renderTaskPage = (parent) => {
     currentListIndex = parent;
     removeContent();
     renderTaskHeader(listItems[parent].title);
-    listItems[parent].taskList.forEach(task => renderTaskItem(task.title, task.id, task.date));
+    listItems[parent].taskList.forEach(task => renderTaskItem(task.title, task.id, task.date, task.completed));
 }
 
 const createNewListItem = () => {
@@ -71,10 +71,28 @@ const editTaskItem = (id) => {
         domElement.remove();
         listItems[currentListIndex].taskList[index].title = title;
         listItems[currentListIndex].taskList[index].date = date;
-        renderTaskItem(title, id, date);
+        let completed = listItems[currentListIndex].taskList[index].completed;
+        renderTaskItem(title, id, date, completed);
         closeModal();  
     }
 }
 
-export { listItems, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
+const completeTask = (id) => {
+    let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
+    let completedValue = listItems[currentListIndex].taskList[index].completed;
+    listItems[currentListIndex].taskList[index].completed = !completedValue;
+
+    checkTask(id);
+}
+
+const checkTask = (id) => {
+    const task = document.querySelector(`[data-task-id="${id}"]`);
+    task.classList.toggle('checked');
+    const radio = document.querySelector(`[data-radio-id="${id}"]`);
+    radio.classList.toggle('checked');
+    const span = document.querySelector(`[data-date-id="${id}"]`);
+    span.classList.toggle('checked');
+}
+
+export { listItems, completeTask, checkTask, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
 

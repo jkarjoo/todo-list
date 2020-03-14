@@ -1,5 +1,6 @@
 import { createHTMLElement } from './createElement.js';
 import { renderDeleteModal, renderEditModal } from './modal.js';
+import { completeTask, checkTask } from './helperfunctions.js';
 
 function Task (title, id, date, completed) {
     this.id = id;
@@ -7,14 +8,16 @@ function Task (title, id, date, completed) {
     return { title, id, date, completed };
 };
 
-const renderTaskItem = (title, id, date) => {
+const renderTaskItem = (title, id, date, completed) => {
     const contentContainer = document.querySelector('.main-content');
     const todoList = document.querySelector('.todolist');
     const task = createHTMLElement('li', ['task']);
     task.dataset.taskId = id;
     const radio = createHTMLElement('div', ['radio']);
+    radio.dataset.radioId = id;
     const span = createHTMLElement('span', [], `${title}`);
     const dueDate = createHTMLElement('span', ['date'], `Due ${date}`);
+    dueDate.dataset.dateId = id;
     const buttons = createHTMLElement('div', ['buttons']);
     const editBtn = createHTMLElement('div', ['editbtn']);
     editBtn.dataset.taskEditId = id;
@@ -31,9 +34,16 @@ const renderTaskItem = (title, id, date) => {
     
     contentContainer.appendChild(todoList);
 
+    if (completed) {
+        checkTask(id);
+    }
     // Event Listeners
+    radio.addEventListener('click', function(e) {
+        completeTask(e.target.dataset.radioId);
+    });
     editBtn.addEventListener('click', function(e) {
         renderEditModal(e.target.dataset.taskEditId);
+        event.stopPropagation();
     });
     deleteBtn.addEventListener('click', function(e) {
         const { target } = e;
