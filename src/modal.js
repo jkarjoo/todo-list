@@ -29,6 +29,9 @@ const renderListModal = () => {
 
     document.body.appendChild(modal);
 
+
+    newlistModal.style.transform = "translateY(400px)";
+
     // Event Listeners
     createBtn.addEventListener('click', createNewListItem);
     cancelBtn.addEventListener('click', closeModal);
@@ -37,7 +40,7 @@ const renderListModal = () => {
 const renderTaskModal = () => {
     const modal = createHTMLElement('div', ['modal-container']);
     modal.dataset.modalType = 'task';
-    const newtaskModal = createHTMLElement('div', ['modal']);
+    const editModal = createHTMLElement('div', ['modal']);
     const form = createHTMLElement('form');
     form.setAttribute('action', 'javascript:void(0)');
     const span = createHTMLElement('span', ['newtaskhead'], 'New Task');
@@ -62,10 +65,12 @@ const renderTaskModal = () => {
     const innerContent = [span, label, input, duelabel, dueinput, modalButtons];
     innerContent.forEach(item => form.appendChild(item));
 
-    newtaskModal.appendChild(form);
-    modal.appendChild(newtaskModal);
+    editModal.appendChild(form);
+    modal.appendChild(editModal);
 
     document.body.appendChild(modal);
+
+    editModal.style.transform = "translateY(400px)";
 
     // Event Listeners
     createBtn.addEventListener('click', createNewTaskItem);
@@ -76,7 +81,7 @@ const renderEditModal = (id) => {
     let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
     const modal = createHTMLElement('div', ['modal-container']);
     modal.dataset.modalType = 'edit';
-    const newtaskModal = createHTMLElement('div', ['modal']);
+    const editModal = createHTMLElement('div', ['modal']);
     const form = createHTMLElement('form');
     form.setAttribute('action', 'javascript:void(0)');
     const span = createHTMLElement('span', ['newtaskhead'], 'Edit Task');
@@ -104,10 +109,12 @@ const renderEditModal = (id) => {
     const innerContent = [span, label, input, duelabel, dueinput, modalButtons];
     innerContent.forEach(item => form.appendChild(item));
 
-    newtaskModal.appendChild(form);
-    modal.appendChild(newtaskModal);
+    editModal.appendChild(form);
+    modal.appendChild(editModal);
 
     document.body.appendChild(modal);
+
+    editModal.style.transform = "translateY(400px)";
 
     // Event Listeners
     editBtn.addEventListener('click', function(e) {
@@ -143,6 +150,8 @@ const renderDeleteModal = (id, type) => {
     modal.appendChild(deleteModal);
 
     document.body.appendChild(modal);
+
+    deleteModal.style.transform = "translateY(400px)";
 
     // Event Listeners
     deleteBtn.addEventListener('click', function(e) {
