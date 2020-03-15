@@ -14,6 +14,7 @@ const renderListItem = (title, id) => {
     const list = createHTMLElement('li', ['list']);
     list.dataset.listId = id;
     const span = createHTMLElement('span', [], `${title}`);
+    span.dataset.listId = id;
     const buttons = createHTMLElement('div', ['buttons']);
     const deleteBtn = createHTMLElement('div', ['deletebtn']);
     deleteBtn.dataset.listDeleteId = id;

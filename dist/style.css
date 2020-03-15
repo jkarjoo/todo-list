@@ -98,7 +98,7 @@ span {
     align-items: center;
     justify-content: center;
     display: flex;
-    font-size: 19px;
+    font-size: 20px;
 }
   
 .empty-icon {
@@ -362,6 +362,9 @@ button {
 @media only screen and (min-device-width : 320px) and (max-device-width : 320px) {
     .modal {
         top: -200px;
+    }
+    .empty-state {
+        font-size: 18px;
     }
 }
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
