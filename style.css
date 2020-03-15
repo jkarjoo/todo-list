@@ -193,7 +193,6 @@ li:nth-of-type(3n+3):hover {
 .editbtn, .deletebtn {
     width: 24px;
     height: 24px;
-    margin-right: 2px;
 }
 
 .editbtn {
