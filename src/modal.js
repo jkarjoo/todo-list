@@ -58,6 +58,7 @@ const renderTaskModal = () => {
     const dueinput = createHTMLElement('input');
     dueinput.setAttribute('type', 'date');
     dueinput.setAttribute('name', 'duedate');
+    dueinput.setAttribute('placeholder', 'yyyy-mm-dd');
     const modalButtons = createHTMLElement('div', ['modal-buttons']);
     const createBtn = createHTMLElement('button', ['create-task'], 'Create');
     const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
