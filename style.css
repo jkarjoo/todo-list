@@ -28,6 +28,7 @@ span {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    margin-top: 50px;
 }
 
 .main-content {
@@ -36,7 +37,6 @@ span {
     height: 80vh;
     background-color: white;
     border-radius: 10px;
-    margin-top: 50px;
     padding: 20px 0px 20px 0px;
 
 }
