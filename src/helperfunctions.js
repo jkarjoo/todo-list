@@ -3,24 +3,37 @@ import { List, renderListItem } from './list.js';
 import { Task, renderTaskItem } from './task.js';
 import { closeModal } from './modal.js';
 import { renderEmptyState, removeEmptyState }  from './emptystate.js';
-import { formatDate } from './datefunctions.js';
 
 let currentListIndex;
 let listItems = [];
 let listId = 0;
 let taskId = 0;
 
+const renderHomePage = () => {
+    removeContent();
+    renderListHeader();
+    checkEmptyListState();
+    listItems.forEach(list => {
+        if (list) {
+            renderListItem(list.title, list.id);
+        }
+    })
+}
+
+const onLoad = () => {
+    if (localStorage.listItems) {
+        listItems = JSON.parse(localStorage.getItem('listItems'));
+        listId = JSON.parse(localStorage.getItem('listId'));
+        taskId = JSON.parse(localStorage.getItem('taskId'));
+    }
+    renderHomePage();
+}
+
 const removeContent = () => {
     let contentContainer = document.querySelector('.main-content');
     contentContainer.innerHTML = '';
 }
 
-const renderHomePage = () => {
-    removeContent();
-    renderListHeader();
-    checkEmptyListState();
-    listItems.forEach(list => renderListItem(list.title, list.id));
-}
 
 const renderTaskPage = (parent) => {
     currentListIndex = parent;
@@ -37,6 +50,7 @@ const createNewListItem = () => {
             listItems.push(list);
             checkEmptyListState();
             renderListItem(list.title, list.id);
+            updateLocalStorage();
             closeModal();
     }
 }
@@ -49,6 +63,7 @@ const createNewTaskItem = () => {
             listItems[currentListIndex].taskList.push(task);
             checkEmptyTaskState();
             renderTaskItem(title, task.id, date);
+            updateLocalStorage();
             closeModal();
     }
 }
@@ -67,6 +82,7 @@ const removeItem = (id, type, parentId) => {
         domElement.remove();
         checkEmptyTaskState();
     }
+    updateLocalStorage();
     closeModal();
 }
 
@@ -81,6 +97,7 @@ const editTaskItem = (id) => {
         listItems[currentListIndex].taskList[index].date = date;
         let completed = listItems[currentListIndex].taskList[index].completed;
         renderTaskItem(title, id, date, completed);
+        updateLocalStorage();
         closeModal();  
     }
 }
@@ -89,6 +106,7 @@ const completeTask = (id) => {
     let index = listItems[currentListIndex].taskList.findIndex(task => task.id == id);
     let completedValue = listItems[currentListIndex].taskList[index].completed;
     listItems[currentListIndex].taskList[index].completed = !completedValue;
+    updateLocalStorage();
 
     checkTask(id);
 }
@@ -121,5 +139,11 @@ const checkEmptyTaskState = () => {
     }
 }
 
-export { listItems, completeTask, checkTask, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
+const updateLocalStorage = () => {
+    localStorage.setItem('listId', JSON.stringify(listId));
+    localStorage.setItem('taskId', JSON.stringify(taskId));
+    localStorage.setItem('listItems', JSON.stringify(listItems));
+}
+
+export { listItems, onLoad, completeTask, checkTask, editTaskItem, currentListIndex, listId, taskId, removeContent, renderHomePage, renderTaskPage, createNewListItem, createNewTaskItem, removeItem };
 

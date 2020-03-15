@@ -1,10 +1,8 @@
-import { renderHomePage } from './helperfunctions.js';
+import { renderHomePage, onLoad } from './helperfunctions.js';
 
 const init = () => {
-
-    // Local Storage here
     
-    renderHomePage();
+    onLoad();
 }
 
 

@@ -1,6 +1,9 @@
 import { createHTMLElement } from './createElement.js';
 import { listItems, editTaskItem, currentListIndex, createNewListItem, createNewTaskItem, removeItem } from './helperfunctions.js';
 
+let listPlaceHolders = ['Home', 'Shopping', 'Work', 'School', 'Groceries', 'Movies to watch', 'Places to eat'];
+let taskPlaceHolders = ['Complete Programming Assignment', 'Go to the Gym', 'Grab lunch at Chick-Fil-A', 'Finish toDoList Project', 'Finish Research Paper', 'Grab Milk from the Store', 'Do Laundry', 'Do Dishes', 'Complete daily coding challenges'];
+
 const renderListModal = () => {
     const modal = createHTMLElement('div', ['modal-container']);
     modal.dataset.modalType = 'list';
@@ -13,10 +16,12 @@ const renderListModal = () => {
     const input = createHTMLElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('name', 'list-title');
-    input.setAttribute('placeholder', 'Work');
+    input.setAttribute('placeholder', listPlaceHolders[Math.floor(Math.random() * listPlaceHolders.length)]);
     const modalButtons = createHTMLElement('div', ['modal-buttons']);
     const createBtn = createHTMLElement('button', ['create-list'], 'Create');
+    createBtn.setAttribute('type', 'button');
     const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+    cancelBtn.setAttribute('type', 'button');
 
     const buttonContent = [createBtn, cancelBtn];
     buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -49,7 +54,7 @@ const renderTaskModal = () => {
     const input = createHTMLElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('name', 'task-title');
-    input.setAttribute('placeholder', 'Do Laundry');
+    input.setAttribute('placeholder', taskPlaceHolders[Math.floor(Math.random() * taskPlaceHolders.length)]);
     const duelabel = createHTMLElement('label', [], 'Due Date');
     duelabel.setAttribute('for', 'duedate');
     const dueinput = createHTMLElement('input');
@@ -57,7 +62,9 @@ const renderTaskModal = () => {
     dueinput.setAttribute('name', 'duedate');
     const modalButtons = createHTMLElement('div', ['modal-buttons']);
     const createBtn = createHTMLElement('button', ['create-task'], 'Create');
+    createBtn.setAttribute('type', 'button');
     const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+    cancelBtn.setAttribute('type', 'button');
 
     const buttonContent = [createBtn, cancelBtn];
     buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -101,7 +108,9 @@ const renderEditModal = (id) => {
     const modalButtons = createHTMLElement('div', ['modal-buttons']);
     const editBtn = createHTMLElement('button', ['edit-task'], 'Edit');
     editBtn.dataset.editId = id;
+    editBtn.setAttribute('type', 'button');
     const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+    cancelBtn.setAttribute('type', 'button');
 
     const buttonContent = [editBtn, cancelBtn];
     buttonContent.forEach(button => modalButtons.appendChild(button));
@@ -138,7 +147,9 @@ const renderDeleteModal = (id, type) => {
     const deleteBtn = createHTMLElement('button', ['delete'], 'Delete');
     deleteBtn.dataset.type = type;
     deleteBtn.dataset.deleteId = id;
+    deleteBtn.setAttribute('type', 'button');
     const cancelBtn = createHTMLElement('button', ['cancel'], 'Cancel');
+    cancelBtn.setAttribute('type', 'button');
 
     const buttonContent = [deleteBtn, cancelBtn];
     buttonContent.forEach(button => modalButtons.appendChild(button));
