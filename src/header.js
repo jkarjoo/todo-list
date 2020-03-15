@@ -1,6 +1,6 @@
 import { createHTMLElement } from './createElement.js';
 import { renderListModal, renderTaskModal } from './modal.js';
-import { renderHomePage } from './helperfunctions.js';
+import { renderHomePage } from './todoAppManager.js';
 
 const renderListHeader = () => {
     const contentContainer = document.querySelector('.main-content');

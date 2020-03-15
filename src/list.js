@@ -1,6 +1,6 @@
 import { createHTMLElement } from './createElement.js';
 import { renderDeleteModal } from './modal.js';
-import { renderTaskPage } from './helperfunctions.js';
+import { renderTaskPage } from './todoAppManager.js';
 
 function List (title, id) {
     this.taskList = [];

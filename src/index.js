@@ -1,6 +1,6 @@
-import { init } from './todoAppManager.js';
+import { onLoad } from './todoAppManager.js';
 
-init();
+onLoad();
 
 
 

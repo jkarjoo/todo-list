@@ -1,6 +1,6 @@
 import { createHTMLElement } from './createElement.js';
 import { renderDeleteModal, renderEditModal } from './modal.js';
-import { completeTask, checkTask } from './helperfunctions.js';
+import { completeTask, checkTask } from './todoAppManager.js';
 import { formatDate } from './datefunctions.js';
 
 function Task (title, id, date, completed) {
@@ -39,6 +39,7 @@ const renderTaskItem = (title, id, date, completed) => {
     if (completed) {
         checkTask(id);
     }
+    
     // Event Listeners
     radio.addEventListener('click', function(e) {
         completeTask(e.target.dataset.radioId);
