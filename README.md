@@ -34,7 +34,7 @@ Here is the working live demo:
 - Mark ToDos as completed
 - Edit ToDos
 - Delete ToDos
-- Saved to localStorage
+- Saves to localStorage
 
 > **_Todo Delete modal_**
 
