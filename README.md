@@ -16,7 +16,7 @@ This is a Todo List Application that is dynamically rendered through JavaScript 
 ## Demo
 
 Here is the working live demo:
-[https://justinkar.github.io/todo-list/](https://justinkar.github.io/todo-list/).
+[https://jkarjoo.github.io/todo-list/](https://jkarjoo.github.io/todo-list/).
 
 ## Technologies
 
